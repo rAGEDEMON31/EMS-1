@@ -26,6 +26,7 @@ const Chatbot = () => {
   return (
     <div>
       {/* <h1 class="bg-gray-900 text-gray-400">Stephen Hawking AI Chatbot</h1> */}
+      {/* TODO: need to add code for new chat and new session */}
     <div class="flex h-screen">
         <aside class="w-1/5 bg-gray-800 p-4 flex flex-col">
             <button class="w-full bg-gray-700 text-white py-2 rounded-lg mb-4">+ New Chat</button>
