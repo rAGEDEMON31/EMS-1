@@ -14,22 +14,22 @@ const navigate = useNavigate();
         event.preventDefault();
     const formData = new FormData(event.target);
     const formValues = Object.fromEntries(formData.entries());
-    const email = formValues.email;
-    const pass = formValues.pass;
     console.log(formValues);
-
-   
-    
     await axios.post("http://localhost:8081/api/employee/login",formValues).then(response=>{
       console.log(response.data);
+      try {
         setUser(response.data)
         console.log(user);
         // navigate("/dashboard")
-        if(response.data.roles.includes("manager")){
-          navigate("/AdminDashboard")}
-        else if(response.data.roles.includes("user")){
-          navigate("/dashboard")
+        if (response.data.roles.includes("manager")) {
+          navigate("/AdminDashboard")
         }
+        else if (response.data.roles.includes("user")) {
+          navigate("/weekly")
+        }
+      } catch (error) {
+          return alert("Invalid credentials")
+      }
     })
     }
     

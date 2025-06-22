@@ -7,9 +7,11 @@ export const signInEmployee = async (req,res) => {
         console.log(req)
         const {email, pass} = req.body;
         const user = await Employee.findOne({email:email,password:pass});
-        console.log(user);
-        
-        res.status(200).json(user);
+        req.session.user = {empId:user._id};
+        console.log(req.session);
+        req.session.save();
+        console.log("On login" , req.session.user);
+        res.send(user);
    } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -142,6 +144,7 @@ export const attendance= async (req, res) => {
 
 export const getAttendance = async(req, res) => {
     try {
+        console.log(req.session);
         const { employeeid, date } = req.params;
         let startDate = new Date(date);
         startDate.setHours(0, 0, 0, 0); // Set time to midnight to avoid issues with time zones

@@ -26,8 +26,9 @@ const { user } = useUser(); // Ensure this is properly set on login
   };
 
   const fetchTeam = async () => {
-     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.manager}`);
+     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
     console.log(res);
+    setTeam(res.data)
   };
 
   const approveLeave = async (id) => {
