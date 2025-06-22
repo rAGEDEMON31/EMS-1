@@ -42,7 +42,7 @@ export const updateLeaveApprovals = async(req,res)=>{
 }
 export const getTeam = async(req,res)=>{
     try {
-        const team = await Employee.find({manager:req.body.username});
+        const team = await Employee.find({manager:req.params.manager});
         res.status(200).json(team);
     } catch (error) {
         res.status(500).json({ message: "ERROR", error });
