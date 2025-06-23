@@ -7,7 +7,7 @@ const SalaryDashboard = () => {
 
   useEffect(async() => {
     // Replace with real API
-    const res = await axios.get(`http://localhost:8081/api/manager/myTeam/sampatp`);
+    const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
 
     console.log(res);
     setTeamData(res.data)
@@ -61,7 +61,7 @@ const SalaryDashboard = () => {
             <tr key={idx} className="hover:bg-gray-50">
               <td className="p-3">{emp.name}</td>
               <td className="p-3">{emp.roles[0]}</td>
-              <td className="p-3 text-right">{emp.ctc}</td>
+              <td className="p-3 text-right">{emp.salary}</td>
               <td className="p-3 text-right">{emp.inHand}</td>
               <td className="p-3 text-right">{emp.lop}</td>
             </tr>

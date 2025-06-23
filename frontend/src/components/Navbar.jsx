@@ -9,7 +9,7 @@ const Navbar = () => {
             <div><h1 onClick={useNavigate}>EMS</h1></div>
             <div className='flex '>
             <Link to={"/login"} className="btn btn-primary mr-2">Login</Link>
-            <Link to={"/signUp"} className="btn btn-secondary ml-2">Sign Up</Link>
+            {/* <Link to={"/signUp"} className="btn btn-secondary ml-2">Sign Up</Link> */}
             </div>
         </div>      
     </div>
