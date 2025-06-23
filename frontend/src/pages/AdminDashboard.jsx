@@ -98,7 +98,8 @@ const { user } = useUser(); // Ensure this is properly set on login
                 <h3 className="font-bold text-gray-800">{name}</h3>
                 {times.map(att => (
                   <div key={att._id} className="border border-gray-300 p-2 my-2 rounded">
-                    <p className="text-gray-600">Date: {att.date}</p>
+                    <p className="text-gray-600">Date: {new Date(att.date).toDateString()}</p>
+                    <p className="text-gray-600">Total Hours: {att.totalHours}</p>
                     <button onClick={() => approveTime(att._id)} className="btn btn-success mt-2">Approve</button>
                   </div>
                 ))}
