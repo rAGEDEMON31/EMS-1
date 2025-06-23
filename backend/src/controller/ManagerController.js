@@ -63,7 +63,9 @@ export const getTeam = async (req, res) => {
 }
 export const getSalary = async (req, res) => {
     try {
-        const sal = await Employee.find({ employee: user._id, salary: req.body.salary })
+        const {manager} = req.params.manager;
+        const sal = await Employee.find({ manager:manager })
+        
         res.status(200).json(sal)
     } catch (error) {
         res.status(500).json({ message: "ERROR", error })
