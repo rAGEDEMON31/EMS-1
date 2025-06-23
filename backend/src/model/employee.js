@@ -25,7 +25,10 @@ const employeeSchema = new mongoose.Schema({
     state: String,
     pincode: String
   },
-  salary : Number, 
+  salary : {
+    type:Number,
+    default : 10000,
+  }, 
   leaveBalance :{
     type : Number,
     default: 5
