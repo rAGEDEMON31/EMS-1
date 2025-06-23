@@ -19,11 +19,8 @@ const { user } = useUser(); // Ensure this is properly set on login
 
   const fetchApprovals = async () => {
     const config = { username: user.username };
-    // const leave = await axios.get(`http://localhost:8081/api/manager/leaveApprovals/${user.username}`);
-    const leave = await axios.get(`http://localhost:8081/api/manager/leaveApprovals/sampatp`);
-    const time = await axios.get(`http://localhost:8081/api/manager/timeApprovals/sampatp`);
-
-    // const time = await axios.get(`http://localhost:8081/api/manager/timeApprovals/${user.username}`);
+    const leave = await axios.get(`http://localhost:8081/api/manager/leaveApprovals/${user.username}`);
+    const time = await axios.get(`http://localhost:8081/api/manager/timeApprovals/${user.username}`);
     setLeaveApprovals(Object.entries(leave.data));
     setTimeApprovals(Object.entries(time.data));
     console.log("Team :",team);
@@ -33,9 +30,7 @@ const { user } = useUser(); // Ensure this is properly set on login
   };
 
   const fetchTeam = async () => {
-    //  const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
-     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/sampatp`);
-
+     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
     console.log(res);
     setTeam(res.data)
   };
