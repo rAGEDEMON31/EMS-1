@@ -8,7 +8,7 @@ import mongoose from "mongoose";
      leaveType :{
         type : String,
         enum : ['paid','unpaid'],
-        default : 'pending'
+        default : 'paid'
         
 
      },

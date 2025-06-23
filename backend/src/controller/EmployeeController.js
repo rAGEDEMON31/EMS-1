@@ -1,17 +1,18 @@
 import { Attendance } from "../model/attendanceSchema.js";
 import { Employee } from "../model/employee.js";
 import {Leave} from "../model/leave.js";
+import moment from 'moment';
 
 export const signInEmployee = async (req,res) => {
     try {
         console.log(req)
         const {email, pass} = req.body;
         const user = await Employee.findOne({email:email,password:pass});
-        req.session.user = {empId:user._id};
-        console.log(req.session);
-        req.session.save();
-        console.log("On login" , req.session.user);
-        res.send(user);
+        // req.session.user = {empId:user._id};
+        // console.log(req.session);
+        // req.session.save();
+        // console.log("On login" , req.session.user);
+        res.status(200).json(user);
    } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -202,31 +203,24 @@ export const submitted = async(req, res)=>{
 
 export const submitLeaves = async(req,res)=>{
     try {
-        const { emp } = req.body;
-        const { startDate, endDate, reason, Lstatus, leaveType } = req.body;
-        const leaveDays = reduction(new Date(startDate), new Date(endDate));
-        const employee = await Employee.findById(emp);
+        const { empId, startDate, endDate, reason,  leaveType } = req.body;
+        const leaveDays = moment(endDate).diff(moment(startDate),'days')+1;
+        const employee = await Employee.findById(empId);
         if (!employee) return res.status(404).json({ message: "Employee not found" });
         if (employee.leaveBalance < leaveDays) {
             return res.status(400).json({ message: "Insufficient leave balance" });
         }
         console.log("Current leaveBalance:", employee.leaveBalance);
         console.log("Leave days to add:", leaveDays);
-
-        employee.leaveBalance -= leaveDays;
-        console.log("Updated leaveBalance:", employee.leaveBalance);
-
-        await employee.save();
-
         const leaveRequest = new Leave({
-            emp,
+            emp:empId,
             startDate,
-            endDate,
-            reason,
-            Lstatus,
-            leaveType,
+            endDate
         })
         await leaveRequest.save();
+        employee.leaveBalance -= leaveDays;
+        console.log("Updated leaveBalance:", employee.leaveBalance);
+        await employee.save();
         res.status(200).json({ message: "Leave sent successfully" })
     }
     catch (error) {

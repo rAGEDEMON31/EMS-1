@@ -8,6 +8,8 @@ import Myinfo from './pages/Myinfo'
 import AdminDashboard from './pages/AdminDashboard'
 import { UserProvider } from './context/UserContext'
 import WeeklyAttendance from './components/weeklyAttendance'
+import Leaves from './components/Leaves'
+import 'react-calendar/dist/Calendar.css';
 
 const App = () => {
   return (
@@ -30,6 +32,7 @@ const App = () => {
           <Route path='/Myinfo' element={<Myinfo />} />
           <Route path='/AdminDashboard' element={<AdminDashboard />}/>
           <Route path='/weekly' element={<WeeklyAttendance/>}/>
+          <Route path='/leaves' element={<Leaves/>}/>
           {/* <Route path='/dashboard' element={<Dashboard/>} /> */}
         </Routes>
       </UserProvider> 

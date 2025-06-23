@@ -25,7 +25,7 @@ const navigate = useNavigate();
           navigate("/AdminDashboard")
         }
         else if (response.data.roles.includes("user")) {
-          navigate("/weekly")
+          navigate("/dashboard")
         }
       } catch (error) {
           return alert("Invalid credentials")

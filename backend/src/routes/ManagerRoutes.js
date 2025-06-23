@@ -5,8 +5,8 @@ import { getLeaveApprovals,  getTimeAppovals, updateLeaveApprovals, updateTimeAp
 const router = express.Router();
 
 router.get("/myTeam/:manager",getTeam);
-router.get("/timeApprovals",getTimeAppovals);
-router.get("/leaveAprrovals",getLeaveApprovals);
+router.get("/timeApprovals/:manager",getTimeAppovals);
+router.get("/leaveApprovals/:manager",getLeaveApprovals);
 router.put("/updatedtimeApproval",updateTimeApprovals);
 router.put("/updateLeaveApproval", updateLeaveApprovals );
 

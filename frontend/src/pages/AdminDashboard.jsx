@@ -19,25 +19,36 @@ const { user } = useUser(); // Ensure this is properly set on login
 
   const fetchApprovals = async () => {
     const config = { username: user.username };
-    const leave = await axios.post('http://localhost:8081/api/manager/leaveAprrovals', config);
-    const time = await axios.post('http://localhost:8081/api/manager/timeApprovals', config);
+    // const leave = await axios.get(`http://localhost:8081/api/manager/leaveApprovals/${user.username}`);
+    const leave = await axios.get(`http://localhost:8081/api/manager/leaveApprovals/sampatp`);
+    const time = await axios.get(`http://localhost:8081/api/manager/timeApprovals/sampatp`);
+
+    // const time = await axios.get(`http://localhost:8081/api/manager/timeApprovals/${user.username}`);
     setLeaveApprovals(Object.entries(leave.data));
     setTimeApprovals(Object.entries(time.data));
+    console.log("Team :",team);
+    console.log(leave.data);
+    console.log(time.data)
+    
   };
 
   const fetchTeam = async () => {
-     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
+    //  const res = await axios.get(`http://localhost:8081/api/manager/myTeam/${user.username}`);
+     const res = await axios.get(`http://localhost:8081/api/manager/myTeam/sampatp`);
+
     console.log(res);
     setTeam(res.data)
   };
 
   const approveLeave = async (id) => {
-    await axios.post('http://localhost:8081/api/manager/updateLeaveApproval', { attendanceId: id });
+    console.log("Approve for ",id);
+    
+    await axios.put('http://localhost:8081/api/manager/updateLeaveApproval', { attendanceId: id });
     fetchApprovals(); // Refresh data
   };
 
   const approveTime = async (id) => {
-    await axios.post('http://localhost:8081/api/manager/updatedtimeApproval', { attendanceId: id });
+    await axios.put('http://localhost:8081/api/manager/updatedtimeApproval', { attendanceId: id });
     fetchApprovals(); // Refresh data
   };
 
@@ -65,10 +76,10 @@ const { user } = useUser(); // Ensure this is properly set on login
           ) : (
             leaveApprovals.map(([user, leaves], index) => (
               <div key={index} className="mt-4">
-                <h3 className="font-bold text-gray-800">{user.name}</h3>
+                <h3 className="font-bold text-gray-800">{user}</h3>
                 {leaves.map(leave => (
                   <div key={leave._id} className="border border-gray-300 p-2 my-2 rounded">
-                    <p className="text-gray-600">From: {leave.fromDate}, To: {leave.toDate}</p>
+                    <p className="text-gray-600">From: {new Date(leave.startDate).toDateString()}, To: {new Date(leave.endDate).toDateString()}</p>
                     <button onClick={() => approveLeave(leave._id)} className="btn btn-success mt-2">Approve</button>
                   </div>
                 ))}
@@ -82,9 +93,9 @@ const { user } = useUser(); // Ensure this is properly set on login
           {timeApprovals.length === 0 ? (
             <p className="text-gray-500">No pending time approvals.</p>
           ) : (
-            timeApprovals.map(([user, times], index) => (
+            timeApprovals.map(([name, times], index) => (
               <div key={index} className="mt-4">
-                <h3 className="font-bold text-gray-800">{user.name}</h3>
+                <h3 className="font-bold text-gray-800">{name}</h3>
                 {times.map(att => (
                   <div key={att._id} className="border border-gray-300 p-2 my-2 rounded">
                     <p className="text-gray-600">Date: {att.date}</p>
