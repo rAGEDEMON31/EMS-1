@@ -10,6 +10,7 @@ const Navbar2 = () => {
             <div><h1 className="cursor-pointer text-lg font-bold">EMS</h1></div>
             <div className='flex '>
             <Link to={"/Myinfo"} className="btn btn-primary mr-2">My Info</Link>
+            <Link to={"/weekly"} className="btn btn-primary mr-2">Check In</Link>
             <Link to={"/"} className="btn btn-secondary ml-2">Logout</Link>
             </div>
         </div>      
