@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext';
 import Navbar2 from '../components/Navbar2';
-import { Link } from 'react-router';
+import { Link } from 'react-router'; // update import
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -31,61 +31,67 @@ const Dashboard = () => {
 
 
   return (
-    <div className='min-h-screen'>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100">
       <Navbar2 />
-      <div className="flex w-full h-screen">
-        <div className="card bg-base-300 rounded-box grid  grow place-items-center">
-          <div className="mx-auto w-full max-w-xl">
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Check in and Check Out</h2>
-
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Today's date : {date}</h2>
-            <div className='flex  shadow-md justify-evenly md:justify-evenly rounded-lg  mt-10 py-4 px-2  md:mx-12'>
-              <Link to={"/weekly"} disabled={checkedIn}>
-                <div className='flex group bg-purple-600 shadow-lg dark-shadow rounded-lg mx-1 cursor-pointer justify-center relative  w-16'>
-
-                  <div className='flex items-center px-4 py-4'>
-                    <div className='text-center'>
-                      <p className='text-gray-100  mt-3 font-bold'> Check In  </p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-
-              <button onClick={checkOut} disabled={checkedOut && checkedIn}>
-                <div className='flex group bg-purple-600 shadow-lg dark-shadow rounded-lg mx-1 cursor-pointer justify-center relative  w-16'>
-
-                  <div className='flex items-center px-4 py-4'>
-                    <div className='text-center'>
-                      <p className='text-gray-100  mt-3 font-bold'> Check Out </p>
-                    </div>
-                  </div>
-                </div>
-              </button>
-
-
-            </div>
+      <div className="flex flex-col items-center justify-center min-h-[80vh]">
+        <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
+          <h1 className="text-4xl font-extrabold text-blue-700 text-center mb-2">
+            Welcome to the Dashboard
+          </h1>
+          <p className="text-lg text-gray-700 text-center mb-2">
+            Hello, <span className="font-semibold text-blue-600">{user.name}</span>!
+          </p>
+          <p className="text-md text-gray-600 text-center mb-4">
+            Today's Date: <span className="font-medium">{date}</span>
+          </p>
+          {/* <div className="flex flex-row gap-4 w-full justify-center">
+            <button
+              className={`py-2 px-6 rounded-lg font-semibold shadow transition 
+              ${checkedIn ? "bg-green-400 text-white cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"}`}
+              onClick={checkIn}
+              disabled={checkedIn}
+            >
+              {checkedIn ? "Checked In" : "Check In"}
+            </button>
+            <button
+              className={`py-2 px-6 rounded-lg font-semibold shadow transition 
+              ${checkedOut ? "bg-red-400 text-white cursor-not-allowed" : "bg-sky-500 hover:bg-sky-600 text-white"}`}
+              onClick={checkOut}
+              disabled={checkedOut}
+            >
+              {checkedOut ? "Checked Out" : "Check Out"}
+            </button>
+          </div> */}
+          <div className="flex flex-row gap-4 w-full justify-center">
+            <Link
+              to="/weekly"
+              className="py-2 px-6 rounded-lg font-semibold shadow transition bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Weekly Attendance
+            </Link>
+            <Link
+              to="/leaves"
+              className="py-2 px-6 rounded-lg font-semibold shadow transition bg-green-600 hover:bg-green-700 text-white"
+            >
+              Leaves
+            </Link>
           </div>
-        </div>
-        <div className="divider divider-horizontal">OR</div>
-        <div className="card bg-base-300 rounded-box grid  grow place-items-center">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight">Apply for leave</h2>
-            <div className='flex  shadow-md justify-evenly md:justify-evenly rounded-lg  mt-10 py-4 px-2  md:mx-12'>
-              <Link to={"/leaves"} disabled={checkedIn}>
-                <div className='flex group bg-purple-600 shadow-lg dark-shadow rounded-lg mx-1 cursor-pointer justify-center relative  w-16'>
-                  <div className='flex items-center px-4 py-4'>
-                    <div className='text-center'>
-                      <p className='text-gray-100  mt-3 font-bold'> Apply here  </p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              </div>
+          <div className="w-full mt-6 flex flex-col md:flex-row gap-4">
+            <div className="flex-1 bg-blue-50 rounded-lg p-4 text-center shadow">
+              <p className="font-semibold text-blue-700">Your Leaves</p>
+              {/* You can add leave stats here */}
+              <span className="text-2xl font-bold text-blue-600">{user.leaveBalance}</span>
+            </div>
+            <div className="flex-1 bg-green-50 rounded-lg p-4 text-center shadow">
+              <p className="font-semibold text-green-700">Attendance</p>
+              <span className="text-2xl font-bold text-green-600">
+                {checkedIn && !checkedOut ? "Present" : checkedOut ? "Checked Out" : "Not Checked In"}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   )
 }
 
