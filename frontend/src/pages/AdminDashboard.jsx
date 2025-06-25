@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext';
-import Navbar2 from '../components/Navbar2';
 import { Link } from 'react-router';
 import axios from 'axios';
+import Navbar3 from '../components/Navbar3';
+import Navbar2 from '../components/Navbar2';
 
 
 
@@ -99,10 +100,13 @@ const AdminDashboard = () => {
                     </div>
                   ))}
                 </div>
+                
               ))
             )}
+            
           </section>
         </div>
+        
       </div>
           <div className='justfy-center items-center flex flex-col gap-4'>
           <Link 
@@ -110,8 +114,17 @@ const AdminDashboard = () => {
           className="py-2 px-6 rounded-lg font-semibold shadow transition btn btn-primary text-white">
             Salary Dashboard
           </Link>
+          <div className='justfy-center items-center flex flex-col gap-4'>
+          <Link 
+          to="/AdminDashboard/Performance"
+          className="py-2 px-6 rounded-lg font-semibold shadow transition btn btn-primary text-white">
+            Performance Dashboard
+          </Link>
           </div>
+          </div>
+          
     </div>
+    
   );
 
 };

@@ -11,6 +11,7 @@ import WeeklyAttendance from './components/weeklyAttendance'
 import Leaves from './components/Leaves'
 import 'react-calendar/dist/Calendar.css';
 import SalaryDashboard from './pages/SalaryDashboard'
+import PerformanceDashboard from './pages/PerformanceDashboard'
 
 const App = () => {
   return (
@@ -35,7 +36,7 @@ const App = () => {
           <Route path='/weekly' element={<WeeklyAttendance/>}/>
           <Route path='/leaves' element={<Leaves/>}/>
           <Route path="/AdminDashboard/salaryDashboard" element={<SalaryDashboard/>}/>
-          
+          <Route path='AdminDashboard/Performance' element={<PerformanceDashboard/>}/>
           {/* <Route path='/dashboard' element={<Dashboard/>} /> */}
         </Routes>
       </UserProvider> 

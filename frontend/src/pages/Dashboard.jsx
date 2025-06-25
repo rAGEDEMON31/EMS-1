@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext';
-import Navbar2 from '../components/Navbar2';
 import { Link } from 'react-router'; // update import
 import axios from 'axios';
+import Navbar2 from '../components/Navbar2';
 
 const Dashboard = () => {
   const [checkedIn, setCheckIn] = useState(false);
