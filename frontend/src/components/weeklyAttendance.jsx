@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from "../context/UserContext";
 import axios from 'axios';
+import Navbar3 from '../components/Navbar3';
 
 const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
@@ -136,72 +137,75 @@ const WeeklyAttendance = () => {
   };
 
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div className="md:col-span-2">
-        <div className="flex items-center justify-between mb-4">
-          <button className="btn  bg-blue-900  btn-outline" onClick={handlePrevWeek}>Previous</button>
-          <h2 className="text-2xl font-bold">
-            Week of {formatDate(weekStart)}
-          </h2>
-          <button className="btn  bg-blue-900  btn-outline" onClick={handleNextWeek}>Next</button>
-        </div>
-        <div className="space-y-4">
-          {daysOfWeek.map((day, idx) => {
-            const date = addDays(weekStart, idx);
-            const isSaved = savedDays[day];
-            return (
-              <div key={day} className="bg-white shadow-md p-4 rounded-xl flex flex-col">
-                <h3 className="text-lg text-black font-semibold capitalize flex items-center gap-2">
-                  {day}
-                  <span className="text-black text-sm">({formatDate(date)})</span>
-                </h3>
-                <div className="flex flex-col md:flex-row md:items-center gap-4 mt-2">
-                  <div>
-                    <label className="block text-sm text-black font-medium">Check-In</label>
-                    <input
-                      type="time"
-                      value={weekData[day]?.checkedIn || ''}
-                      onChange={(e) => handleTimeChange(day, 'checkedIn', e.target.value,date)}
-                      className="input input-bordered w-full"
-                      disabled={isSaved}
-                    />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-sky-100 to-white">
+      <Navbar3 />
+      <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-2">
+          <div className="flex items-center justify-between mb-4">
+            <button className="btn bg-blue-900 btn-outline" onClick={handlePrevWeek}>Previous</button>
+            <h2 className="text-2xl font-bold text-black">
+              Week of {formatDate(weekStart)}
+            </h2>
+            <button className="btn bg-blue-900 btn-outline" onClick={handleNextWeek}>Next</button>
+          </div>
+          <div className="space-y-4">
+            {daysOfWeek.map((day, idx) => {
+              const date = addDays(weekStart, idx);
+              const isSaved = savedDays[day];
+              return (
+                <div key={day} className="bg-white shadow-md p-4 rounded-xl flex flex-col">
+                  <h3 className="text-lg text-black font-semibold capitalize flex items-center gap-2">
+                    {day}
+                    <span className="text-black text-sm">({formatDate(date)})</span>
+                  </h3>
+                  <div className="flex flex-col md:flex-row md:items-center gap-4 mt-2">
+                    <div>
+                      <label className="block text-sm text-black font-medium">Check-In</label>
+                      <input
+                        type="time"
+                        value={weekData[day]?.checkedIn || ''}
+                        onChange={(e) => handleTimeChange(day, 'checkedIn', e.target.value, date)}
+                        className="input input-bordered w-full"
+                        disabled={isSaved}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-black text-sm font-medium">Check-Out</label>
+                      <input
+                        type="time"
+                        value={weekData[day]?.checkedOut || ''}
+                        onChange={(e) => handleTimeChange(day, 'checkedOut', e.target.value, date)}
+                        className="input input-bordered w-full"
+                        disabled={isSaved}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-black text-sm font-medium">Check-Out</label>
-                    <input
-                      type="time"
-                      value={weekData[day]?.checkedOut || ''}
-                      onChange={(e) => handleTimeChange(day, 'checkedOut', e.target.value,date)}
-                      className="input input-bordered w-full"
+                  <div className="flex justify-end mt-4">
+                    <button
+                      className={`btn bg-blue-600 hover:bg-blue-900 text-white ${isSaved ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      onClick={() => handleSaveDay(day, date)}
                       disabled={isSaved}
-                    />
+                    >
+                      OK
+                    </button>
                   </div>
                 </div>
-                <div className="flex justify-end mt-4">
-                  <button
-                    className={`btn bg-blue-600 hover:bg-blue-900 text-white ${isSaved ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={(e) => handleSaveDay(day,date)}
-                    disabled={isSaved}
-                  >
-                    OK
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      <aside className="bg-gray-100  shadow-md rounded-xl p-6 h-fit">
-        <h2 className="text-xl text-black font-bold mb-4">Submit Attendance</h2>
-        <p className="text-sm text-black mb-2">Ensure all days are filled before submitting.</p>
-        <button
-          onClick={handleSubmit}
-          className="btn btn-primary w-full"
-        >
-          Submit Week
-        </button>
-      </aside>
+        <aside className="bg-gray-100 shadow-md rounded-xl p-6 h-fit">
+          <h2 className="text-xl text-black font-bold mb-4">Submit Attendance</h2>
+          <p className="text-sm text-black mb-2">Ensure all days are filled before submitting.</p>
+          <button
+            onClick={handleSubmit}
+            className="btn btn-primary w-full"
+          >
+            Submit Week
+          </button>
+        </aside>
+      </div>
     </div>
   );
 };
