@@ -1,0 +1,5 @@
+[phases.setup]
+nixpkgsArchive = "23.11"
+
+[start]
+cmd = "cd frontend && npm install && npm run build"
